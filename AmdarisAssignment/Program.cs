@@ -20,10 +20,17 @@ namespace AmdarisAssignment
             //SetOperations();
             //Joins();
 
-            ImportantPacket packet = new ImportantPacket { Object = "windscreen", CityId = 2, Weight = 8.1, TimeLimit = TimeSpan.Parse("12:00:00") };
-            packet.Remind();
-            Console.WriteLine(4.Power(3));
-            Console.WriteLine("default text".FirstWord());
+            //ImportantPacket packet = new ImportantPacket { Object = "windscreen", CityId = 2, Weight = 8.1, TimeLimit = TimeSpan.Parse("12:00:00") };
+            //packet.Remind();
+            //Console.WriteLine(4.Power(3));
+            //Console.WriteLine("default text".FirstWord());
+
+            var sum_weight = (from packet in _packets
+                                 join city in _cities on packet.CityId equals city.Id
+                                 where city.Name == "Piatra Neamt"
+                                 select packet.Weight).Sum();
+
+            Console.WriteLine(sum_weight);
         }
 
         private static void PrintCollection<T>(IEnumerable<T> source)
@@ -223,7 +230,7 @@ namespace AmdarisAssignment
                 new Packet { Object = "keyboard", CityId = 1, Weight = 7.5 },
                 new Packet { Object = "wheel", CityId = 4, Weight = 7.5 },
                 new Packet { Object = "documents", CityId = 5, Weight = 0.1 },
-                new Packet { Object = "book", CityId = 5, Weight = 0.3 }
+                new Packet { Object = "book", CityId = 6, Weight = 0.3 }
             };
 
         private static readonly IEnumerable<City> _cities = CreateCityList();
